@@ -3,7 +3,7 @@
 Create Dastabase ans Schemas
 =====================================================================
 
-script purpose :
+Script Purpose :
 This script creates a new datase names 'DataWarehouse' after checking iff it already exists.
 If the database exists, it is droped and recreated . Additionally , the script sets up three schemas within the database: 'bronze','silver','gold'.
 
@@ -14,12 +14,11 @@ WARNING:
 */
 
 
-
-
-
 USE master;
 GO
+ 
 
+-- Drop and rcreate the 'Datawarehouse' database
 IF EXISTS (SELECT 1 FROM sys.databases WHERE name = 'Datawarehouse')
 BEGIN
     ALTER DATABASE Datawarehouse SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
