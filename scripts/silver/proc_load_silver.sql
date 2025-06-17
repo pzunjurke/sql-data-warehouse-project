@@ -42,7 +42,7 @@ BEGIN
 			cst_firstname, 
 			cst_lastname, 
 			cst_marital_status, 
-			cst_gndr,
+			cst_gender,
 			cst_create_date
 		)
 		SELECT
@@ -56,10 +56,10 @@ BEGIN
 				ELSE 'n/a'
 			END AS cst_marital_status, -- Normalize marital status values to readable format
 			CASE 
-				WHEN UPPER(TRIM(cst_gndr)) = 'F' THEN 'Female'
-				WHEN UPPER(TRIM(cst_gndr)) = 'M' THEN 'Male'
+				WHEN UPPER(TRIM(cst_gender)) = 'F' THEN 'Female'
+				WHEN UPPER(TRIM(cst_gender)) = 'M' THEN 'Male'
 				ELSE 'n/a'
-			END AS cst_gndr, -- Normalize gender values to readable format
+			END AS cst_gender, -- Normalize gender values to readable format
 			cst_create_date
 		FROM (
 			SELECT
@@ -82,7 +82,7 @@ BEGIN
 			prd_id,
 			cat_id,
 			prd_key,
-			prd_nm,
+			prd_name,
 			prd_cost,
 			prd_line,
 			prd_start_dt,
@@ -92,7 +92,7 @@ BEGIN
 			prd_id,
 			REPLACE(SUBSTRING(prd_key, 1, 5), '-', '_') AS cat_id, -- Extract category ID
 			SUBSTRING(prd_key, 7, LEN(prd_key)) AS prd_key,        -- Extract product key
-			prd_nm,
+			prd_name,
 			ISNULL(prd_cost, 0) AS prd_cost,
 			CASE 
 				WHEN UPPER(TRIM(prd_line)) = 'M' THEN 'Mountain'
