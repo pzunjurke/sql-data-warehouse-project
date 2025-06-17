@@ -18,6 +18,8 @@ Uses example:
 
 */
 
+
+
 CREATE or ALTER PROCEDURE bronze.load_bronze AS
 BEGIN
     DECLARE @start_time DATETIME, @end_time DATETIME,@batch_start_time DATETIME,@batch_end_time DATETIME;
@@ -163,10 +165,10 @@ BEGIN
     END TRY
     BEGIN CATCH
         PRINT '=========================================';
-        PRINT 'ERROR OCCURED DURING LOADING BRONZE LAYER';
-        PRINT 'Error Message' + ERROR_MESSAGE();
-        PRINT 'Error Message' + CAST ( ERROR_NUMBER() AS NVARCHAR);
-        PRINT 'Error Message' + CAST ( ERROR_STATE() AS NVARCHAR);
+        PRINT 'ERROR OCCURRED DURING LOADING BRONZE LAYER';
+        PRINT 'Error Message: ' + ERROR_MESSAGE();
+        PRINT 'Error Number : ' + CAST(ERROR_NUMBER() AS NVARCHAR);
+        PRINT 'Error State  : ' + CAST(ERROR_STATE() AS NVARCHAR);
         PRINT '=========================================';
     END CATCH
 END
