@@ -70,7 +70,8 @@ Use SQL-based analytics to uncover insights around:
 
 
 🙌 Acknowledgments
-Special thanks to all mentors and online resources that contributed to the successful completion of this project.
+A heartfelt thank you to **Mr. Baraa Khatib Salkini** for his insightful course and detailed guidance, which helped me understand and implement the end-to-end **Data Engineering** workflow using the **Medallion Architecture**.  
+His structured approach and real-world examples were instrumental in shaping this project. 🙏
 
 ## 🌟 About Me
 
