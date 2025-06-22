@@ -29,7 +29,16 @@ SELECT
     ci.cst_key                         AS customer_number,
     ci.cst_firstname                   AS first_name,
     ci.cst_lastname                    AS last_name,
-    la.cntry                           AS country,
+    CASE 
+            WHEN la.cntry IS NULL OR 
+                 LTRIM(RTRIM(REPLACE(REPLACE(la.cntry, CHAR(13), ''), CHAR(10), ''))) = ''
+                THEN 'n/a'
+            WHEN REPLACE(REPLACE(LTRIM(RTRIM(la.cntry)), CHAR(13), ''), CHAR(10), '') = 'US' or REPLACE(REPLACE(LTRIM(RTRIM(la.cntry)), CHAR(13), ''), CHAR(10), '') = 'USA'
+                THEN 'United States'
+            WHEN LTRIM(RTRIM(REPLACE(REPLACE(la.cntry, CHAR(13), ''), CHAR(10), ''))) = 'DE'
+                THEN 'Germany'
+            ELSE REPLACE(REPLACE(LTRIM(RTRIM(la.cntry)), CHAR(13), ''), CHAR(10), '')
+    END AS country,
     ci.cst_marital_status              AS marital_status,
     CASE 
         WHEN ci.cst_gender != 'n/a' THEN ci.cst_gender -- CRM is the primary source for gender
