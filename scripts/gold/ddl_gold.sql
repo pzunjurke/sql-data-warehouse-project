@@ -1,20 +1,3 @@
-
-/*
-===============================================================================
-DDL Script: Create Gold Views
-===============================================================================
-Script Purpose:
-    This script creates views for the Gold layer in the data warehouse. 
-    The Gold layer represents the final dimension and fact tables (Star Schema)
-
-    Each view performs transformations and combines data from the Silver layer 
-    to produce a clean, enriched, and business-ready dataset.
-
-Usage:
-    - These views can be queried directly for analytics and reporting.
-===============================================================================
-*/
-
 -- =============================================================================
 -- Create Dimension: gold.dim_customers
 -- =============================================================================
@@ -29,16 +12,7 @@ SELECT
     ci.cst_key                         AS customer_number,
     ci.cst_firstname                   AS first_name,
     ci.cst_lastname                    AS last_name,
-    CASE 
-            WHEN la.cntry IS NULL OR 
-                 LTRIM(RTRIM(REPLACE(REPLACE(la.cntry, CHAR(13), ''), CHAR(10), ''))) = ''
-                THEN 'n/a'
-            WHEN REPLACE(REPLACE(LTRIM(RTRIM(la.cntry)), CHAR(13), ''), CHAR(10), '') = 'US' or REPLACE(REPLACE(LTRIM(RTRIM(la.cntry)), CHAR(13), ''), CHAR(10), '') = 'USA'
-                THEN 'United States'
-            WHEN LTRIM(RTRIM(REPLACE(REPLACE(la.cntry, CHAR(13), ''), CHAR(10), ''))) = 'DE'
-                THEN 'Germany'
-            ELSE REPLACE(REPLACE(LTRIM(RTRIM(la.cntry)), CHAR(13), ''), CHAR(10), '')
-    END AS country,
+    la.cntry                           AS country,
     ci.cst_marital_status              AS marital_status,
     CASE 
         WHEN ci.cst_gender != 'n/a' THEN ci.cst_gender -- CRM is the primary source for gender
@@ -74,8 +48,8 @@ SELECT
     pn.prd_line     AS product_line,
     pn.prd_start_dt AS start_date
 FROM silver.crm_prd_info pn
-LEFT JOIN silver.erp_px_cate_glv2 pc
-    ON pn.prd_key = pc.id
+LEFT JOIN silver.erp_px_cat_g1v2 pc
+    ON pn.cat_id = pc.id
 WHERE pn.prd_end_dt IS NULL; -- Filter out all historical data
 GO
 
@@ -99,7 +73,7 @@ SELECT
     sd.sls_price    AS price
 FROM silver.crm_sales_details sd
 LEFT JOIN gold.dim_products pr
-    ON sd.sls_prd_key = pr.category_id
+    ON sd.sls_prd_key = pr.product_number
 LEFT JOIN gold.dim_customers cu
     ON sd.sls_cust_id = cu.customer_id;
 GO
