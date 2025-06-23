@@ -12,7 +12,12 @@ SELECT
     ci.cst_key                         AS customer_number,
     ci.cst_firstname                   AS first_name,
     ci.cst_lastname                    AS last_name,
-    la.cntry                           AS country,
+       CASE 
+        WHEN TRIM(REPLACE(REPLACE(la.cntry, CHAR(13), ''), CHAR(10), '')) IN ('USA', 'United States') THEN 'United States'
+        WHEN TRIM(REPLACE(REPLACE(la.cntry, CHAR(13), ''), CHAR(10), '')) IN ('DE') THEN 'Germany'
+        WHEN TRIM(REPLACE(REPLACE(la.cntry, CHAR(13), ''), CHAR(10), '')) = '' OR la.cntry IS NULL THEN 'n/a'
+        ELSE TRIM(REPLACE(REPLACE(la.cntry, CHAR(13), ''), CHAR(10), ''))
+    END                      AS country,
     ci.cst_marital_status              AS marital_status,
     CASE 
         WHEN ci.cst_gender != 'n/a' THEN ci.cst_gender -- CRM is the primary source for gender
