@@ -13,7 +13,7 @@ SELECT
     ci.cst_firstname                   AS first_name,
     ci.cst_lastname                    AS last_name,
        CASE 
-        WHEN TRIM(REPLACE(REPLACE(la.cntry, CHAR(13), ''), CHAR(10), '')) IN ('USA', 'United States') THEN 'United States'
+        WHEN TRIM(REPLACE(REPLACE(la.cntry, CHAR(13), ''), CHAR(10), '')) IN ('US','USA', 'United States') THEN 'United States'
         WHEN TRIM(REPLACE(REPLACE(la.cntry, CHAR(13), ''), CHAR(10), '')) IN ('DE') THEN 'Germany'
         WHEN TRIM(REPLACE(REPLACE(la.cntry, CHAR(13), ''), CHAR(10), '')) = '' OR la.cntry IS NULL THEN 'n/a'
         ELSE TRIM(REPLACE(REPLACE(la.cntry, CHAR(13), ''), CHAR(10), ''))
