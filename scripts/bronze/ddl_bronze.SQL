@@ -67,9 +67,9 @@ CREATE TABLE bronze.erp_cust_az12(
 
 
 
-IF OBJECT_ID('bronze.erp_px_cate_glv2' , 'U') IS NOT NULL  -- U means user create table
-    DROP TABLE bronze.erp_px_cate_glv2;
-CREATE TABLE bronze.erp_px_cate_glv2(
+IF OBJECT_ID('bronze.erp_px_cat_g1v2' , 'U') IS NOT NULL  -- U means user create table
+    DROP TABLE bronze.erp_px_cat_g1v2;
+CREATE TABLE bronze.erp_px_cat_g1v2(
     ID          NVARCHAR(50),
     Cat         NVARCHAR(50),
     subcat      NVARCHAR(50),
